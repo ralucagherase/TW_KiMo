@@ -12,6 +12,13 @@
     <a href="index.html"><h1>KidMonitor</h1></a>
     <strong>
         Hello
+        <?php
+          if($rowProfiles['prenume']) {
+            echo $rowProfiles['prenume'];
+          }else{
+            echo $rowUsers['user_email'];
+          }
+        ?>
     </strong>
     <nav>
         <ul>
