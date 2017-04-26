@@ -10,6 +10,6 @@ unset($_SESSION['user_session']);
 
 if(session_destroy())
 {
-    header("Location: ../index.html");
+    header("Location: ../index.php");
 }
 ?>

@@ -25,7 +25,7 @@ $rowProfiles = $tblProfiles->fetch(PDO::FETCH_ASSOC);
 </head>
 <body>
 <header>
-    <a href="index.html"><h1>KidMonitor</h1></a>
+    <a href="index.php"><h1>KidMonitor</h1></a>
     <strong>
         Hello
         <?php
