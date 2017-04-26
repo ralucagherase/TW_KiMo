@@ -8,7 +8,7 @@
 session_start();
 if(!isset($_SESSION['user_session']))
 {
-    header("Location: index.php");
+    header("Location: index.html");
 }
 include_once 'database/dbconfig.php';
 $tblUsers = $db_con->prepare("SELECT * FROM tbl_users WHERE user_id=:uid");
