@@ -1,3 +1,19 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['user_session']))
+  {
+    header("Location: index.php");
+  }
+  include_once 'database/dbconfig.php';
+  $tblUsers = $db_con->prepare("SELECT * FROM tbl_users WHERE user_id=:uid");
+$tblUsers->execute(array(":uid"=>$_SESSION['user_session']));
+$rowUsers = $tblUsers->fetch(PDO::FETCH_ASSOC);
+
+$tblProfiles = $db_con->prepare("SELECT * FROM tbl_profiles WHERE user_email='".$rowUsers['user_email']."'");
+$tblProfiles->execute();
+$rowProfiles = $tblProfiles->fetch(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
