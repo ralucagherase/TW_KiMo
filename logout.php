@@ -6,10 +6,8 @@
  * Time: 22:39
  */
 session_start();
-unset($_SESSION['user_session']);
-
-if(session_destroy())
-{
-    header("Location: ../index.php");
-}
+session_unset();
+session_destroy();
+header("Location: /index.php");
+exit
 ?>

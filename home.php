@@ -41,7 +41,7 @@ $rowProfiles = $tblProfiles->fetch(PDO::FETCH_ASSOC);
             <li><a href="profile.php">Profilul meu</a></li>
             <li><a href="vezi-copilul.php">Vezi Copilul</a></li>
             <li><a href="adauga-copil.php">Adauga un Copil</a></li>
-            <li class="right"><a href="database/logout.php">Logout</a></li>
+            <li class="right"><a href="logout.php">Logout</a></li>
             <li class="right"><a href="notificari.php">Notificari</a></li>
         </ul>
     </nav>
