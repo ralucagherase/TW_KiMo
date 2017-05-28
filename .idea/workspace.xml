@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a532ac7-8385-4127-add3-45be8d493d3b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/add-child-script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/add_child_process.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/get_childs.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,13 +60,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add-child-script.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="add-child-script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/add-child-script.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="629">
               <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding>
                 <marker date="1495964211619" expanded="true" signature="902:908" ph=" " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_childs.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/get_childs.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+              <folding>
+                <marker date="1495964884967" expanded="true" signature="175:254" ph="SELECT * FRO... tbl_childs" />
               </folding>
             </state>
           </provider>
@@ -82,19 +93,6 @@
                 <marker date="1495922441946" expanded="true" signature="250:292" ph="SELECT * FRO... tbl_users" />
                 <marker date="1495922441946" expanded="true" signature="440:513" ph="SELECT * FRO... tbl_profiles" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="0">
-                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
             </state>
           </provider>
         </entry>
@@ -175,6 +173,7 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/database/add_child_process.php" />
         <option value="$PROJECT_DIR$/assets/js/add-child-script.js" />
+        <option value="$PROJECT_DIR$/database/get_childs.php" />
       </list>
     </option>
   </component>
@@ -391,7 +390,7 @@
       <workItem from="1493137205407" duration="3688000" />
       <workItem from="1493201574338" duration="2270000" />
       <workItem from="1495905295669" duration="221000" />
-      <workItem from="1495962396579" duration="1232000" />
+      <workItem from="1495962396579" duration="1898000" />
     </task>
     <task id="LOCAL-00001" summary="Create style for TW_KiMo">
       <created>1493137315800</created>
@@ -484,11 +483,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495923800613</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Create add-child process for database, not just page">
+      <created>1495964252763</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1495964252763</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12999000" />
+    <option name="totallyTimeSpent" value="13665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
@@ -533,20 +539,14 @@
     <MESSAGE value="Edit use case, adding scenaries" />
     <MESSAGE value="Move logout from database and changed if condition" />
     <MESSAGE value="Changed index.php to look pretty &lt;3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed index.php to look pretty &lt;3" />
+    <MESSAGE value="Create add-child process for database, not just page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create add-child process for database, not just page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/js/login-script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/validation.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -946,6 +946,16 @@
           <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding>
             <marker date="1495964211619" expanded="true" signature="902:908" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/get_childs.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+          <folding>
+            <marker date="1495964884967" expanded="true" signature="175:254" ph="SELECT * FRO... tbl_childs" />
           </folding>
         </state>
       </provider>
