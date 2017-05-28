@@ -1,59 +1,102 @@
 <?php
-  session_start();
-  if(!isset($_SESSION['user_session']))
-  {
+session_start();
+if(!isset($_SESSION['user']))
+{
     header("Location: index.php");
-  }
-  include_once 'database/dbconfig.php';
-  $tblUsers = $db_con->prepare("SELECT * FROM tbl_users WHERE user_id=:uid");
-$tblUsers->execute(array(":uid"=>$_SESSION['user_session']));
-$rowUsers = $tblUsers->fetch(PDO::FETCH_ASSOC);
-
-$tblProfiles = $db_con->prepare("SELECT * FROM tbl_profiles WHERE user_email='".$rowUsers['user_email']."'");
-$tblProfiles->execute();
-$rowProfiles = $tblProfiles->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
     <title>KidMonitor</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet"/>
+    <style>
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        var map,
+            markers = [],
+            bounds,
+            infoWindow = [],
+            circles = []
+        notifications = [];
+
+        var session = {};
+        session.user = <?php echo json_encode($_SESSION['user']); ?>;
+    </script>
 </head>
 <body>
-<header>
-    <a href="index.php"><h1>KidMonitor</h1></a>
-    <strong>
-        Hello
-        <?php
-          if($rowProfiles['prenume']) {
-            echo $rowProfiles['prenume'];
-          }else{
-            echo $rowUsers['user_email'];
-          }
-        ?>
-    </strong>
-    <nav>
-        <ul>
-            <li><a href="profile.php">Profilul meu</a></li>
-            <li><a href="vezi-copilul.php">Vezi Copilul</a></li>
-            <li><a href="adauga-copil.php">Adauga un Copil</a></li>
-            <li class="right"><a href="logout.php">Logout</a></li>
-            <li class="right"><a href="notificari.php">Notificari</a></li>
-        </ul>
-    </nav>
-</header>
-<section class="map">
-    <div id="map"></div>
-</section>
-
-<script src="assets/js/jquery-3.2.1.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_KsHe3ZXqIKApA-LUAnzFeZPs1W_9P0Y&callback=initMap"
-        async defer></script>
-<script src="assets/js/main.js"></script>
+<?php
+$base_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'))[0];
+?>
+<a href="/<?php echo $base_uri; ?>/logout.php" class="btn btn-danger logout-btn">Logout</a>
+<div class="dropdown notification-btn">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Notifications
+        <span class="badge">0</span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"></ul>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Configureaza markerul</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-config-form" data-marker-id="">
+                    <div class="form-group">
+                        <label for="marker-type-select">Preference</label>
+                        <select name="marker_type" class="form-control" id="marker-type-select">
+                            <option value="child">Copil</option>
+                            <option value="animal">Animal</option>
+                            <option value="object">Obiect</option>
+                            <!-- <option value="target">Target</option> -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="marker-title">Nume</label>
+                        <input name="title" class="form-control" id="marker-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="marker-movable-select">Mobil</label>
+                        <select name="marker_movable" class="form-control" id="marker-movable-select">
+                            <option value="1">Da</option>
+                            <option value="0">Nu</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="id"/>
+                    <input type="hidden" value="<?php echo $_SESSION['user']['user_id']; ?>" name="user_id"/>
+                    <input type="hidden" name="lat"/>
+                    <input type="hidden" name="lng"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Inchide</button>
+                <button type="button" id="save-config" class="btn btn-primary">Salveaza</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map"></div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/markerConfig.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_KsHe3ZXqIKApA-LUAnzFeZPs1W_9P0Y&callback=initMap&libraries=geometry" async defer></script>
 </body>
 </html>
