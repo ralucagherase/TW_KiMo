@@ -1,128 +1,37 @@
-body {
+body{
+    width: 100%;
     margin: 0;
-    background-color: #f1f9f9;
-    font-family: sans-serif;
-}
-
-header {
-    text-align: center;
-    float: left;
-    width: 100%;
-}
-
-header nav {
-    float: left;
-    width: 100%;
-}
-
-header nav ul {
-    list-style: none;
-    float: left;
-    width: 100%;
-    background-color: #666;
-    padding-left: 0;
-    margin: 0;
-}
-
-header nav li {
-    float: left;
-}
-
-header nav li.right {
-    float: right;
-}
-
-header nav a {
-    padding: 10px 15px;
-    float: left;
-    background-color: #ccc;
-    color: #666;
-    text-decoration: none;
-    border-right: solid 2px #666;
-}
-
-header nav a:hover {
-    background-color: #555;
-    color: white;
-}
-
-header nav li:first-child a {
-    border-left: solid 2px #666;
-}
-
-.signin-section {
-    margin-top: 60px;
-}
-.form-signin {
-    max-width: 500px;
-    padding: 19px 29px 29px;
-    margin: 0 auto;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    font-family: Tahoma, Geneva, sans-serif;
-    color: #990000;
-    font-weight: lighter;
-}
-.form-signin .form-signin-heading {
-    color: #00A2D1;
-}
-.form-signin input[type="email"],
-.form-signin input[type="password"] {
-    font-size: 16px;
-    height: 45px;
-    padding: 7px 9px;
-}
-
-.profile-section {
-    text-align: center;
-}
-.profile-section-wrap {
-    display: inline-block;
-    padding-top: 50px;
-    text-align: left;
-}
-.form-profile__email {
-    pointer-events: none;
-    outline: none;
-    border: none;
-    background-color: rgba(255,255,255,0);
-}
-
-.logo {
-    text-decoration: none;
-    color: red;
-}
-
-.logo h1 {
-    margin: 10px 0;
     padding: 0;
 }
 
-.map {
-    float: left;
-    width: 100%;
-    height: calc(100vh - 95px);
+.logout-btn{
+    position: fixed;
+    right: 20px;
+    top: 10px;
+    z-index: 2;
 }
 
-#map {
-    width: 100%;
-    height: 100%;
+.dropdown.notification-btn {
+    position: fixed;
+    right: 100px;
+    top: 10px;
+    z-index: 2;
 }
 
+.bodyContent button{
+    width: 100%;
+}
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 667px) {
-    header nav li {
-        float: left !important;
-        margin: 2px;
-    }
+.dropdown-menu{
+    left: -171px;
+    width: 300px;
+}
 
-    header nav li a {
-        border: none !important;
-    }
+.dropdown-menu li{
+    width: 100%;
+    height: 20px;
+    background: #d3d3d3;
+    text-align: center;
+    padding-bottom: 2px;
+    margin-top: 2px;
 }
