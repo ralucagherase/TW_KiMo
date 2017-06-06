@@ -58,12 +58,14 @@ $(document).ready(function(){
                     marker.type = selectedMarkerType;
                     marker.movable = $('#modal-config-form').find('#marker-movable-select').val();
 
+// uncomment this part to make markers draggable
+/*
                     if(marker.movable == '0'){
                         marker.setDraggable(false);
                     }else{
                         marker.setDraggable(true);
                     }
-
+ */
                     infoWindow[marker.id].setContent(newContent);
 
                     $('#myModal').modal('hide');
@@ -73,6 +75,9 @@ $(document).ready(function(){
                     });
                     marker.circle.setMap(null);
                     marker.setMap(null);
+                }
+                }else{
+                    $('.configMarkerFormErrorMessage').text(data.errorMessage).css({'display': 'block'});
                 }
             }
         });

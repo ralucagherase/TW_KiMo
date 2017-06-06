@@ -68,15 +68,17 @@ function initMap(){
     bounds = new google.maps.LatLngBounds();
 
     initialize();
-
+    console.log(session);
     $.ajax({
         type: 'GET',
-        url: 'http://localhost/KiMo/api/markers/get.php',
+        url: 'http://localhost/KiMo/api/markers/get/token/' + session.user.user_token,
         data: {
             id: session.user.user_id
         },
         dataType: "json",
         success: function(data) {
+
+            if(typeof(data.error) == 'undefined'){
 
             data.forEach(function(item, index){
 
@@ -97,16 +99,17 @@ function initMap(){
                     position: position,
                     map: map,
                     title: item.title,
-                    icon: icon,
-                    draggable: true
+                    icon: icon/*,
+                    draggable: true*/ // uncomment this to make markers draggable
                 });
 
                 marker.movable = item.movable;
-                if(marker.movable == '0'){
-                    marker.setDraggable(false);
-                }else{
-                    marker.setDraggable(true);
-                }
+                // uncomment this to make markers draggable
+                /*if(marker.movable == '0'){
+                 marker.setDraggable(false);
+                 }else{
+                 marker.setDraggable(true);
+                 }*/
                 var line = new google.maps.Polyline({
                     path: [
                         new google.maps.LatLng(activeMarker.position.lat(), activeMarker.position.lng()),
@@ -183,6 +186,40 @@ function initMap(){
                 markers.push(marker);
             });
 
+            }else{
+                switch(data.errorCode){
+                    case 1000: (function(){
+                        $.notify({
+                            message: 'Exception occured. Please view the console.'
+                        },{
+                            type: 'danger'
+                        });
+                    })();
+                        break;
+                    case 1001: (function(){
+                        $.notify({
+                            message: 'User is not logged in.'
+                        },{
+                            type: 'danger'
+                        });
+                    })();
+                        break;
+                    case 1002: (function(){
+                        $.notify({
+                            message: 'Cannot authenticate user.'
+                        },{
+                            type: 'danger'
+                        });
+                    })();
+                        break;
+                    default: (function(){
+
+                    })();
+
+                        console.log(data.errorMessage);
+                }
+            }
+
             google.maps.event.addListener(map, 'click', function(event) {
                 placeMarker(event.latLng);
             });
@@ -198,8 +235,8 @@ function placeMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-        draggable: true
+        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'/*,
+         draggable: true*/ // uncomment this to make markers draggable
     });
 
     var activeMarker = markers[0];
@@ -311,12 +348,11 @@ function removeMarker(index){
     });
 
     $.ajax({
-        url: 'http://localhost/KiMo/api/markers/delete.php',
-        method: 'POST',
-        data: {
-            'id': marker.id
-        },
+        url: 'http://localhost/KiMo/api/markers/delete/id/' + marker.id + '/token/' + session.user.user_token,
+        method: 'DELETE',
         success: function(data){
+
+            if(typeof(data.error) == 'undefined'){
             if(data == 1){
                 marker.lines.forEach(function(item, index){
                     item.setMap(null);
@@ -324,7 +360,39 @@ function removeMarker(index){
                 marker.circle.setMap(null);
                 marker.setMap(null);
                 markers.splice(indexOfMarker, 1);
-                infoWindow[marker.id] = undefined;
+                infoWindow[marker.id] = undefined;}
+            }else{
+                switch(data.errorCode){
+                    case 1000: (function(){
+                        $.notify({
+                            message: 'Exception occured. Please view the console.'
+                        },{
+                            type: 'danger'
+                        });
+                    })();
+                        break;
+                    case 1001: (function(){
+                        $.notify({
+                            message: 'User is not logged in.'
+                        },{
+                            type: 'danger'
+                        });
+                    })();
+                        break;
+                    case 1002: (function(){
+                        $.notify({
+                            message: 'Cannot authenticate user.'
+                        },{
+                            type: 'danger'
+                        });
+                    })();
+                        break;
+                    default: (function(){
+
+                    })();
+
+                        console.log(data.errorMessage);
+                }
             }
         }
     });
@@ -356,16 +424,11 @@ function updateNotifications(){
         markers.forEach(function(marker, index){
             if(marker.movable == 1){
                 $.ajax({
-                    url: 'http://localhost/KiMo/api/markers/move.php',
-                    method: 'POST',
-                    data: {
-                        id: marker.id,
-                        lat: marker.position.lat(),
-                        lng: marker.position.lng(),
-                    },
+                    url: 'http://localhost/KiMo/api/markers/get/id/' + marker.id + '/token/' + session.user.user_token,
+                    method: 'GET',
                     dataType: 'json',
                     success: function(data){
-                        var newPosition = new google.maps.LatLng(parseFloat(data.lat), parseFloat(data.lng));
+                        var newPosition = new google.maps.LatLng(parseFloat(data[0].lat), parseFloat(data[0].lng));
                         marker.setPosition(newPosition);
                         marker.lines.forEach(function(item, idx){
                             item.getPath().pop();
