@@ -21,6 +21,8 @@ $(document).ready(function(){
             data: $('#modal-config-form').serialize(),
             dataType: 'json',
             success: function(data){
+                if(typeof(data.error) == 'undefined'){
+                    $('.configMarkerFormErrorMessage').css({'display': 'none'});
                 var marker;
 
                 markers.forEach(function(item, idx){
