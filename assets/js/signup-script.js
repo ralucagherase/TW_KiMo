@@ -29,9 +29,9 @@ $('document').ready(function() {
         submitHandler: submitLoginForm
     });
 
-    /* login submit */
+    /* signup submit */
     function submitLoginForm() {
-        var data = $("#signup-form").serialize();
+        var data = $("#signup-form").serializeArray();
         $.ajax({
             type: 'POST',
             url: 'database/signup_process.php',

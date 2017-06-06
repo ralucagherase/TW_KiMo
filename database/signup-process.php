@@ -28,16 +28,21 @@ if(isset($_POST['btn-signup']))
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if(!$row){
-            $stmt = $db_con->prepare("INSERT INTO tbl_users(user_email, user_password) VALUES (:email, :password)");
+            // doua componente statice si una dinamica, pentru a asigura unicitatea hash-ului
+            $token = md5($user_email . $user_confirm_password . time());
+
+            $stmt = $db_con->prepare("INSERT INTO tbl_users(user_email, user_password, user_token) VALUES (:email, :password, :user_token)");
             $stmt->execute(array(
                 ":email" => $user_email,
-                ":password" => $password
+                ":password" => $password,
+                ":user_token" => $token
             ));
 
             $_SESSION['user'] = [
                 'user_id' => $db_con->lastInsertId(),
                 'user_email' => $user_email,
-                'user_password' => $password
+                'user_password' => $password,
+                'user_token' => $token
             ];
             echo "ok"; // log in
             exit;

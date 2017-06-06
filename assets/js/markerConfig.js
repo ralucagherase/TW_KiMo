@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     $('#save-config').click(function(){
         $.ajax({
-            url: 'http://localhost/KiMo/api/markers/add.php',
+            url: 'http://localhost/KiMo/api/markers/add/token/' + session.user.user_token,
             method: 'POST',
             data: $('#modal-config-form').serialize(),
             dataType: 'json',
