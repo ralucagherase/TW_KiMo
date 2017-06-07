@@ -1,0 +1,9 @@
+Error Codes:
+
+1000 - Request to web api has an invalid HTTP Method (GET, POST, PUT, DELETE)
+
+1001 - Request to web api doesn't contain user token
+
+1002 - Request to web api doesn't contain a valid user token
+
+1003 - Request to web api doesn't contain a valid user token
