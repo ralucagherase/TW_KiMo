@@ -42,14 +42,14 @@
                 <hr />
                 <div class="form-group">
                     <button id="btn-login" class="btn btn-default" type="submit" name="btn-login"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Sign In</button>
-                    <a href="http://localhost/KiMo/signup.php" class="btn btn-default">Sign Up</a>
+                    <a href="http://localhost/KiMo/signup.php" class="btn btn-link">Sign Up</a>
                 </div>
             </form>
         </div>
     </section>
 </div>
 
-<script src="assets/js/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="assets/js/jquery-3.2.1.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="assets/js/login-script.js"></script>
