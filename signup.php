@@ -44,7 +44,7 @@ if(isset($_SESSION['user'])!="")
                 </div>
                 <hr />
                 <div class="form-group">
-                    <a href="http://localhost/KiMo/index.php" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Sign In</a>
+                    <a href="http://localhost/KiMo/index.php" class="btn btn-link"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Sign In</a>
                     <button id="btn-signup" class="btn btn-default" type="submit" name="btn-signup">Sign Up</button>
                 </div>
             </form>
@@ -52,7 +52,7 @@ if(isset($_SESSION['user'])!="")
     </section>
 </div>
 
-<script src="assets/js/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="assets/js/signup-script.js"></script>

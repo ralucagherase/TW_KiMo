@@ -39,9 +39,9 @@ if(!isset($_SESSION['user']))
 </head>
 <body>
 <?php
-$base_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'))[0];
+$base_uri = str_replace('/home.php', '', $_SERVER['REQUEST_URI']);
 ?>
-<a href="/<?php echo $base_uri; ?>/logout.php" class="btn btn-danger logout-btn">Logout</a>
+<a href="<?php echo $base_uri; ?>/logout.php" class="btn btn-danger logout-btn">Logout</a>
 <div class="dropdown notification-btn">
     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Notifications
         <span class="badge">0</span>
@@ -57,6 +57,7 @@ $base_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'))[0];
                 <h4 class="modal-title" id="myModalLabel">Configureaza markerul</h4>
             </div>
             <div class="modal-body">
+                <div class="alert alert-danger configMarkerFormErrorMessage"></div>
                 <form id="modal-config-form" data-marker-id="">
                     <div class="form-group">
                         <label for="marker-type-select">Preference</label>
@@ -79,7 +80,7 @@ $base_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'))[0];
                         </select>
                     </div>
                     <input type="hidden" name="id"/>
-                    <input type="hidden" value="<?php echo $_SESSION['user']['user_id']; ?>" name="user_id"/>
+
                     <input type="hidden" name="lat"/>
                     <input type="hidden" name="lng"/>
                 </form>
@@ -92,9 +93,10 @@ $base_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'))[0];
     </div>
 </div>
 <div id="map"></div>
-<script src="assets/js/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="assets/js/main.js"></script>
 <script type="text/javascript" src="assets/js/markerConfig.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_KsHe3ZXqIKApA-LUAnzFeZPs1W_9P0Y&callback=initMap&libraries=geometry" async defer></script>
